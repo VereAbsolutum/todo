@@ -7,3 +7,12 @@ Todo List Project
 - Semantic HTML5 markup
 - CSS custom properties
 - javascript (ES6)
+
+### Functionalities
+
+- LocalStorage
+- Filters (all, completed, uncompleted)
+- delete button (remove)
+- complete button (change complete-btn to display: none)
+- input on click enter key
+- focus on input on input changes
