@@ -150,9 +150,6 @@
   todoButton.addEventListener('click', submitTodoHandler)
   todosContainer.addEventListener('click', todosManagementHandler)
 
-  // init filter
-  filterTodo.value = 'uncompleted'
-
   document.addEventListener('keyup', (e) => {
     if (e.target.keyCode !== 13) return
     submitTodoHandler
@@ -191,6 +188,7 @@
     }, [todoInput.value])
 
     todoInput.value = ''
+    saveLocalTodos()
   }
 
   function todosManagementHandler(e) {
@@ -226,6 +224,7 @@
         props: { todos: todoFiltered }
       })
     }
+    saveLocalTodos()
   }
 
   function filterTodoHandler(e) {
@@ -237,4 +236,24 @@
       props: { todos: todoFiltered }
     })
   }
+
+  function saveLocalTodos() {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }
+  const getLocalTodos = () => {
+    if (localStorage.getItem('todos') == null)
+      localStorage.setItem('todos', JSON.stringify([]))
+    else {
+      const local = JSON.parse(localStorage.getItem('todos'))
+      setToDos(local)
+      removeChilds(todosContainer)
+      render({
+        frag: TodoList,
+        container: '#todo-container ul',
+        props: { todos }
+      })
+      console.log(local)
+    }
+  }
+  getLocalTodos()
 })()
